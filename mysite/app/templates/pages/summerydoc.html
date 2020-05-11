@@ -1,0 +1,143 @@
+<head>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+    .navbar {
+        background:#6ab446;
+    }
+    .nav-link,
+    .navbar-brand {
+        color: #fff;
+        cursor: pointer;
+    }
+    .nav-link {
+        margin-right: 1em !important;
+    }
+    .nav-link:hover {
+        color: #000;
+    }
+    .navbar-collapse {
+        justify-content: flex-end;
+    }
+    .container{
+        text-align:center;
+        
+    }
+    .col-sm{
+        background-color: #ffad33;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+        margin-left: 20px;
+        border-radius: 10px;
+        transition: 0.3s;
+        width:100px;
+    }
+    
+    .col-sm:hover{
+        background-color: #3e8e41;
+        color: white;
+    }
+    .block {
+        display: block;
+        width: 100%;
+        height : 100%;
+        border: none;
+        font-size: 30px;
+        cursor: pointer;
+        text-align: center;
+        padding: 20px;
+        border-radius: 25px;
+        background-color: transparent;
+        margin : none;
+        color:#0080ff;
+        transition: 0.3s;
+    }
+    .btn:hover{
+        background-color:transparent;
+    }
+    
+    </style>
+</head>
+
+<body style="align-content: center">
+    <nav class="navbar navbar-expand-md">
+      <a class="navbar-brand" href="#">Solutions :) </a>
+      <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="main-navigation">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'doc_home' doc.id %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'summeryindex'  %}">Summary</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+        <div class="jumbotron" >
+            <h1>Summary</h1>      
+        </div>
+    <div class="contents" >
+        <table class = "table" name='bookingtable' border=2>
+            <tr>
+                <td><strong>Hospital</strong></td>
+                <td><strong>General beds</strong></td>
+                <td><strong>Isolation beds</strong></td>
+                <td><strong>Ventilators</strong></td>
+                <td><strong>General occupied</strong></td>
+                <td><strong>Isolation occupied</strong></td>
+                <td><strong>Ventilators occupied</strong></td>
+                
+            </tr>
+            {%for hospital in users%}
+            
+            <tr>
+                {%for da in hospital%}
+                <td>{{da}}</td>
+                {%endfor%}
+                          
+            </tr>
+            {%endfor%}
+        </table>
+        
+        {% if users.has_other_pages %}
+      <ul class="pagination">
+        {% if users.has_previous %}
+          <li><a href="?page={{ users.previous_page_number }}">&laquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&laquo;</span></li>
+        {% endif %}
+        {% for i in users.paginator.page_range %}
+          {% if users.number == i %}
+            <li class="active"><span>{{ i }} <span class="sr-only">(current)</span></span></li>
+          {% else %}
+            <li><a href="?page={{ i }}">{{ i }}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if users.has_next %}
+          <li><a href="?page={{ users.next_page_number }}">&raquo;</a></li>
+        {% else %}
+          <li class="disabled"><span>&raquo;</span></li>
+        {% endif %}
+      </ul>
+    {% endif %}    
+    </div>
+</div>
+    
+    
+    
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
